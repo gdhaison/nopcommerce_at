@@ -33,5 +33,5 @@ jobs:
       - name: Upload test report
         uses: actions/upload-artifact@v4
         with:
-          name: behave-report
+          name: behave-report-${{ matrix.os }}
           path: reports/
