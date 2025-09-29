@@ -6,7 +6,7 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -24,7 +24,7 @@ jobs:
 
       - name: Install Playwright browsers
         run: |
-          python -m playwright install
+          python -m playwright install --with-deps
 
       - name: Run Behave tests
         run: |
@@ -33,5 +33,5 @@ jobs:
       - name: Upload test report
         uses: actions/upload-artifact@v4
         with:
-          name: behave-report
+          name: behave-report-${{ matrix.os }}
           path: reports/
