@@ -1,0 +1,8 @@
+playwright>=1.37.0
+pytest
+pytest-html
+python-dotenv
+mailslurp-client 
+behave
+behave-html-formatter
+pyyaml

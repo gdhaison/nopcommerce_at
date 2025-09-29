@@ -1,0 +1,50 @@
+```
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg
+*.egg-info/
+*.manifest
+*.spec
+
+# Virtual environment
+.venv/
+env/
+venv/
+ENV/
+*.venv
+
+# Logs
+*.log
+logs/
+debug.log
+
+# Reports & Artifacts
+reports/
+*.html
+*.xml
+*.json
+screenshots/
+videos/
+traces/
+
+# Jupyter / IPython
+.ipynb_checkpoints
+
+# VS Code / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid
+*.tar
+```

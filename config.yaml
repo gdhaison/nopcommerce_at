@@ -1,0 +1,35 @@
+# Test configuration file for nopCommerce automation
+
+env:
+  base_url: "https://demo.nopcommerce.com"
+
+users:
+  # Default test account (if needed)
+  default:
+    email: "testuser@example.com"
+    password: "Password123!"
+
+  # New user data for registration tests
+  new_user:
+    first_name: "Automation"
+    last_name: "Tester"
+    email: "auto_user_{random}@example.com"
+    password: "Password123!"
+
+email:
+  # Config for retrieving reset password emails
+  provider: "imap"
+  imap_host: "imap.example.com"
+  imap_port: 993
+  username: "testuser@example.com"
+  password: "emailPassword"
+
+report:
+  screenshots: true
+  videos: true
+  traces: true
+
+browser:
+  type: "chromium"    # chromium | firefox | webkit
+  headless: true      # default mode; can override with CLI
+  slowmo: 0           # set >0 for debugging (ms delay per action)

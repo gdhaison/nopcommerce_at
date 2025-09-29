@@ -1,0 +1,7 @@
+Feature: User Registration # features/register.feature:1
+
+  Scenario: Successful registration with random yopmail  # features/register.feature:3
+    Given I am on the registration page                  # features/steps/register_step.py:7
+    When I register with a random yopmail                # features/steps/register_step.py:18
+    Then I should see the registration success message   # features/steps/register_step.py:22
+
