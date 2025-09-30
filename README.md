@@ -73,19 +73,11 @@ docker build -t nopcommerce-tests .
 ### 2. Run tests (headless)
 
 ```bash
-docker run --rm nopcommerce-tests
+docker run --rm -e DOCKER_ENV=true \                                    
+   -v $(pwd):/app \
+   -v $(pwd)/reports:/app/reports \
+   nopcommerce-tests
 ```
-
-### 3. Run tests (with VNC to see UI)
-
-```bash
-docker-compose up
-```
-
-* Open VNC client → connect to `localhost:5900`
-* Password: `secret`
-* You can now watch browser running inside container
-
 ---
 
 ## 📋 Test Coverage (mandatory flows)
