@@ -15,16 +15,12 @@ def step_sort_products(context, sort_option):
 @when('I filter products by manufacturer "{manufacturer}"')
 def step_filter_by_manufacturer(context, manufacturer):
     context.category_page.filter_by_manufacturer(manufacturer)
+    context.category_page.page.wait_for_load_state("networkidle")
 
 @when('I set the price filter from "{min_price}" to "{max_price}"')
 def step_set_price_filter(context, min_price, max_price):
     context.category_page.drag_price_slider(min_price, max_price)
-
-    # min_handle.drag_to(min_handle, target_position={"x": 50, "y": 0})
-    # max_handle.drag_to(max_handle, target_position={"x": -50, "y": 0})
-
-    import time
-    time.sleep(10)
+    context.category_page.page.wait_for_load_state("networkidle")
 
 @then('I should see a list of products under "{category_name}"')
 def step_verify_products_in_category(context, category_name):
@@ -48,6 +44,7 @@ def step_verify_products_sorted_by_price_desc(context):
 
 @then('only "{manufacturer}" products should be shown')
 def step_verify_products_filtered_by_manufacturer(context, manufacturer):
+    context.category_page.page.wait_for_load_state("networkidle")
     product_titles = context.category_page.get_product_titles()
     assert product_titles, "No products found after applying manufacturer filter"
     assert all(manufacturer.lower() in title.lower() for title in product_titles), \
@@ -64,6 +61,7 @@ def step_verify_products_filtered_by_price_range(context, min_price, max_price):
     
 @then('I should see no products available message')
 def step_verify_no_products_message(context):
+    context.category_page.page.wait_for_load_state("networkidle")
     assert context.category_page.is_no_products_message_displayed(), \
         "Expected no products message to be displayed, but it was not."
 

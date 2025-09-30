@@ -9,6 +9,8 @@ __pycache__/
 *.egg-info/
 *.manifest
 *.spec
+*.output
+
 
 # Virtual environment
 .venv/
@@ -24,6 +26,7 @@ debug.log
 
 # Reports & Artifacts
 reports/
+output/
 *.html
 *.xml
 *.json

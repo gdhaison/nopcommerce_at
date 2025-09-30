@@ -1,6 +1,9 @@
 name: Playwright Python Behave Tests
 
-on: [push, pull_request]
+on: 
+  pull_request: 
+    branches: 
+      - main
 
 jobs:
   test:
@@ -24,13 +27,14 @@ jobs:
 
       - name: Install Playwright browsers
         run: |
-          python -m playwright install --with-deps
+          python -m playwright install
 
       - name: Run Behave tests
         run: |
-          behave -f behave_html_formatter:HTMLFormatter -o reports/report.html
+          behave -f behave_html_pretty_formatter:PrettyHTMLFormatter -o reports/report.html
 
       - name: Upload test report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: behave-report-${{ matrix.os }}

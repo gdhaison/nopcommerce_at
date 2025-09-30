@@ -3,14 +3,14 @@ Feature: Explore and filter products
   I want to browse products by categories, sort, and apply filters
   So that I can quickly find items that match my needs
 
-  @category @navigation
+  @explore_prod @category @navigation
   Scenario: Navigate to Notebooks under Computers category
     Given I am on the homepage
     When I navigate to "Computers" category
     And I click "Notebooks"
     Then I should see a list of products under "Notebooks"
 
-  @sort @price
+  @explore_prod @sort @price
   Scenario: Sort products by price (Low to High)
     Given I am on the homepage
     When I navigate to "Computers" category
@@ -19,7 +19,7 @@ Feature: Explore and filter products
     Then the products should be displayed in ascending order of price
     
 
-  @sort @price
+  @explore_prod @sort @price
   Scenario: Sort products by price (Low to High)
     Given I am on the homepage
     When I navigate to "Computers" category
@@ -28,7 +28,7 @@ Feature: Explore and filter products
     When I Sleep for "1" seconds 
     Then the products should be displayed in descending order of price 
 
-  @filter @manufacturer
+  @explore_prod @filter @manufacturer
   Scenario: Filter products by a specific manufacturer
     Given I am on the homepage
     When I navigate to "Computers" category
@@ -36,7 +36,7 @@ Feature: Explore and filter products
     When I filter products by manufacturer "Apple"
     Then only "Apple" products should be shown
 
-  @filter @manufacturer
+  @explore_prod @filter @manufacturer
   Scenario Outline: Filter products by multiple manufacturers
     Given I am on the homepage
     When I navigate to "Computers" category
@@ -49,15 +49,15 @@ Feature: Explore and filter products
       | Apple        |
       | HP           |
 
-  @filter @price
+  @explore_prod @filter @price
   Scenario: Filter products by a price range
     Given I am on the homepage
     When I navigate to "Computers" category
     And I click "Desktops"
     When I set the price filter from "200" to "1100"
-    Then only products with price between "500" and "1000" should be shown
+    Then only products with price between "200" and "1000" should be shown
 
-  @filter @price @edge
+  @explore_prod @filter @price @edge
   Scenario: Filter products with no results
     Given I am on the homepage
     When I navigate to "Computers" category

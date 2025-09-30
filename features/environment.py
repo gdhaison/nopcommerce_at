@@ -3,19 +3,31 @@ from tests.pages.register_page import RegisterPage
 import os
 import time
 from behave.model_core import Status
-from tests.utils.logger import logger   # 👈 import logger
+from tests.utils.logger import logger
 
 def before_all(context):
     logger.info("=== Test suite starting ===")
     context.playwright = sync_playwright().start()
 
-    is_ci = os.getenv("CI") or os.getenv("DOCKER_ENV")
-    if is_ci:
-        logger.info("Running in CI/Docker mode: launching Chromium headless")
-        context.browser = context.playwright.chromium.launch(headless=True)
-    else:
-        logger.info("Running in local mode: launching Chrome with UI")
-        context.browser = context.playwright.chromium.launch(headless=False, channel="chrome")
+    browser_name = context.config.userdata.get("browser", "chromium")
+    if browser_name == "firefox":
+        is_ci = os.getenv("CI") or os.getenv("DOCKER_ENV")
+        if is_ci:
+            logger.info("Running in CI/Docker mode: launching firefox headless")
+            context.browser = context.playwright.firefox.launch(headless=True)
+        else:
+            logger.info("Running in local mode: launching Webkit with UI")
+            context.browser = context.playwright.firefox.launch(headless=False)
+    
+    elif browser_name == "chromium":
+
+        is_ci = os.getenv("CI") or os.getenv("DOCKER_ENV")
+        if is_ci:
+            logger.info("Running in CI/Docker mode: launching Chromium headless")
+            context.browser = context.playwright.chromium.launch(headless=True)
+        else:
+            logger.info("Running in local mode: launching Chrome with UI")
+            context.browser = context.playwright.chromium.launch(headless=False, channel="chrome")
 
     context.browser_context = context.browser.new_context(
         user_agent=(
@@ -52,15 +64,14 @@ def after_step(context, step):
     if step.status == Status.failed:
         timestamp = time.strftime("%Y%m%d-%H%M%S")
         filename = f"screenshot_{step.name}_{timestamp}.png"
-        path = os.path.join("reports", filename)
-        context.page.screenshot(path=path, full_page=True)
-        logger.error(f"Step FAILED: {step.name} → Screenshot saved at {path}")
+        filepath = os.path.join("reports", filename)
+        context.page.screenshot(path=filepath, full_page=True)
+        logger.error(f"Step FAILED: {step.name}. Screenshot saved to {filepath}")
+        # Attach screenshot to the step for reporting (if supported by formatter)
 
-        if hasattr(context, "log"):
-            context.log(f"Screenshot saved: {filename}")
-            step.error_message = (step.error_message or "") + f"\nScreenshot: {filename}"
-        else:
-            print(f"[FAILED STEP] Screenshot saved: {filename}")
+        if not hasattr(step, "attachments"):
+            step.attachments = []
+        step.attachments.append(filepath)
     else:
         logger.info(f"Step PASSED: {step.name}")
 

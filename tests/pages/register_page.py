@@ -2,6 +2,7 @@ import random
 import string
 from tests.pages.base_page import BasePage
 from tests.utils.config import CONFIG
+from tests.utils.logger import logger
 
 class RegisterPage(BasePage):
     def __init__(self, page):
