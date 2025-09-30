@@ -1,7 +1,68 @@
-Feature: User Registration # features/register.feature:1
+Feature: Explore and filter products # features/explore_product.feature:1
+  As a user
+  I want to browse products by categories, sort, and apply filters
+  So that I can quickly find items that match my needs
+  @category @navigation
+  Scenario: Navigate to Notebooks under Computers category  # features/explore_product.feature:7
+    Given I am on the homepage                              # features/steps/common_step.py:4
+    When I navigate to "Computers" category                 # features/steps/explore_product.py:6
+    And I click "Notebooks"                                 # features/steps/common_step.py:9
+    Then I should see a list of products under "Notebooks"  # features/steps/explore_product.py:29
 
-  Scenario: Successful registration with random yopmail  # features/register.feature:3
-    Given I am on the registration page                  # features/steps/register_step.py:7
-    When I register with a random yopmail                # features/steps/register_step.py:18
-    Then I should see the registration success message   # features/steps/register_step.py:22
+  @sort @price
+  Scenario: Sort products by price (Low to High)                      # features/explore_product.feature:14
+    Given I am on the homepage                                        # features/steps/common_step.py:4
+    When I navigate to "Computers" category                           # features/steps/explore_product.py:6
+    And I click "Notebooks"                                           # features/steps/common_step.py:9
+    When I sort products by "Price: Low to High"                      # features/steps/explore_product.py:11
+    Then the products should be displayed in ascending order of price # features/steps/explore_product.py:34
+
+  @sort @price
+  Scenario: Sort products by price (Low to High)                       # features/explore_product.feature:23
+    Given I am on the homepage                                         # features/steps/common_step.py:4
+    When I navigate to "Computers" category                            # features/steps/explore_product.py:6
+    And I click "Notebooks"                                            # features/steps/common_step.py:9
+    When I sort products by "Price: High to Low"                       # features/steps/explore_product.py:11
+    When I Sleep for "1" seconds                                       # features/steps/common_step.py:13
+    Then the products should be displayed in descending order of price # features/steps/explore_product.py:40
+
+  @filter @manufacturer
+  Scenario: Filter products by a specific manufacturer  # features/explore_product.feature:32
+    Given I am on the homepage                          # features/steps/common_step.py:4
+    When I navigate to "Computers" category             # features/steps/explore_product.py:6
+    And I click "Notebooks"                             # features/steps/common_step.py:9
+    When I filter products by manufacturer "Apple"      # features/steps/explore_product.py:15
+    Then only "Apple" products should be shown          # features/steps/explore_product.py:49
+
+  @filter @manufacturer
+  Scenario Outline: Filter products by multiple manufacturers -- @1.1   # features/explore_product.feature:49
+    Given I am on the homepage                                          # features/steps/common_step.py:4
+    When I navigate to "Computers" category                             # features/steps/explore_product.py:6
+    And I click "Notebooks"                                             # features/steps/common_step.py:9
+    When I filter products by manufacturer "Apple"                      # features/steps/explore_product.py:15
+    Then only "Apple" products should be shown                          # features/steps/explore_product.py:49
+
+  @filter @manufacturer
+  Scenario Outline: Filter products by multiple manufacturers -- @1.2   # features/explore_product.feature:50
+    Given I am on the homepage                                          # features/steps/common_step.py:4
+    When I navigate to "Computers" category                             # features/steps/explore_product.py:6
+    And I click "Notebooks"                                             # features/steps/common_step.py:9
+    When I filter products by manufacturer "HP"                         # features/steps/explore_product.py:15
+    Then only "HP" products should be shown                             # features/steps/explore_product.py:49
+
+  @filter @price
+  Scenario: Filter products by a price range                               # features/explore_product.feature:53
+    Given I am on the homepage                                             # features/steps/common_step.py:4
+    When I navigate to "Computers" category                                # features/steps/explore_product.py:6
+    And I click "Desktops"                                                 # features/steps/common_step.py:9
+    When I set the price filter from "200" to "1100"                       # features/steps/explore_product.py:19
+    Then only products with price between "500" and "1000" should be shown # features/steps/explore_product.py:56
+
+  @filter @price @edge
+  Scenario: Filter products with no results            # features/explore_product.feature:61
+    Given I am on the homepage                         # features/steps/common_step.py:4
+    When I navigate to "Computers" category            # features/steps/explore_product.py:6
+    And I click "Desktops"                             # features/steps/common_step.py:9
+    When I set the price filter from "9800" to "10000" # features/steps/explore_product.py:19
+    Then I should see no products available message    # features/steps/explore_product.py:65
 
