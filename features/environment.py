@@ -8,9 +8,10 @@ from behave.model_core import Status
 
 def before_all(context):
     context.playwright = sync_playwright().start()
-    docker_env = os.getenv("DOCKER_ENV", "false").lower() == "true"
 
-    if docker_env:
+    is_ci = os.getenv("CI") or os.getenv("DOCKER_ENV")
+
+    if is_ci:
         context.browser = context.playwright.chromium.launch(headless=True)
     else:
         context.browser = context.playwright.chromium.launch(headless=False, channel="chrome")
