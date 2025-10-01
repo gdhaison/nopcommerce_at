@@ -4,7 +4,7 @@ Demo video is stored in this link: https://drive.google.com/file/d/11KzjHFMxElKx
 
 This project provides a **from-scratch Playwright test framework** to automate core user journeys on [nopCommerce demo site](https://demo.nopcommerce.com).
 
-- **Supports:** Local & Docker execution
+- **Supports:** Local & Docker execution, cross browser and cross platform testing
 - **Design:** Page Object Model (POM)
 - **Artifacts:** HTML reports, screenshots, videos, traces, logs
 - **Ready for:** CI/CD, production use
