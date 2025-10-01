@@ -103,10 +103,6 @@ After each test run, the framework automatically captures useful artifacts for d
 
 - **Screenshots:** Captured on test failure and saved in the `reports/` directory (e.g., `reports/screenshot_*.png`).
 - **Logs:** Test execution logs are stored in the `reports/logs/` directory.
-- **Playwright Traces:** Saved in the `reports/` directory (e.g., `reports/trace.zip`). View with:
-  ```bash
-  npx playwright show-trace reports/trace.zip
-  ```
 - **Videos:** (If enabled) Saved in the `reports/` directory.
 
 > These artifacts help you quickly diagnose test failures by providing visual and step-by-step context.
@@ -136,13 +132,6 @@ _Additional tests have been added to increase coverage._
 - Configurable test environments
 - Ready for CI/CD pipelines
 - Optional Docker + VNC support
-
----
-
-## 📹 Demo
-
-- Sample run video: `demo.mp4`
-- Sample report: `reports/report.html`
 
 ---
 
