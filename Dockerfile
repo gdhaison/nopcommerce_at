@@ -14,4 +14,4 @@ COPY . /app
 RUN mkdir -p reports
 
 # Default command khi chạy container
-CMD ["behave", "-f", "behave_html_formatter:HTMLFormatter", "-o", "reports/report.html"]
+CMD ["behave", "-f", "behave_html_pretty_formatter:PrettyHTMLFormatter", "-o", "reports/report.html"]

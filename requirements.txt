@@ -6,3 +6,6 @@ mailslurp-client
 behave
 behave-html-formatter
 pyyaml
+behavex
+behave-html-pretty-formatter
+allure-behave

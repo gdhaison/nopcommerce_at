@@ -42,6 +42,7 @@ def step_register_detailed(context, email, first, last, password, confirm_passwo
 @when('I click register without filling any fields')
 def step_register_email_without_filling(context):
     context.register_page.click_register()
+    context.page.wait_for_timeout(1000)
 
 @then('I should see an error message "{message}"')
 def step_verify_error_message(context, message):
